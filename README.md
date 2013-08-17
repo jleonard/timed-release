@@ -1,6 +1,17 @@
 #Timed Release
 A small .js utility to simulate real time activity in an html simulation. 
 
+#### Example
+
+```html
+var array = ["uno","dos","tres"];
+var config = {
+                minInterval: 200,
+                maxInterval: 5000
+              };
+var tr = new TimedRelease( array, config,function(item,index){ console.log("Released ",item," at ",index); });
+```
+
 #### Config
 ######The config obj has three optional properties.  
 **minInterval** (milliseconds) The minimum amount of time between each release.  
