@@ -5,11 +5,19 @@ A small .js utility to simulate real time activity in an html simulation.
 
 ```html
 var array = ["uno","dos","tres"];
+
 var config = {
                 minInterval: 200,
                 maxInterval: 5000
               };
-var tr = new TimedRelease( array, config,function(item,index){ console.log("Released ",item," at ",index); });
+              
+var tr = new TimedRelease( 
+                                array, 
+                                config,
+                                function(item,index){ 
+                                                console.log("Released ",item," at ",index); 
+                                }
+                          );
 ```
 
 #### Config
