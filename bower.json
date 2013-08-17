@@ -1,0 +1,10 @@
+{
+  "name": "timed-release",
+  "version": "0.1.0",
+  "main": "timed-release.js",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "components"
+  ]
+}

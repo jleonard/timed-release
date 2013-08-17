@@ -11,15 +11,13 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
     
-    <script src="timed-release.js"></script>
+    <script src="src/timed-release.js"></script>
     </head>
     <body>
       <div id="main">
-        
+        <h6>Check your .js console</h6>
       </div>
-      <script src="http://code.jquery.com/jquery.min.js"></script>
       <script>
-          
           var arr = ["foo","bar","baz"];
           var tr = new TimedRelease(arr,{minInterval:200,maxInterval:5000},
           	function(item,index){
