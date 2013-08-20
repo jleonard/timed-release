@@ -13,7 +13,7 @@
  * @param {object} config - The configuration obj containing minInterval, maxInterval and optional loop properties.
  * @param {timedReleaseCallback} callback - Called on each item release. 
  */
-  var TimedRelease = function(array,config,callback){
+function TimedRelease(array,config,callback){
 
     var currentIndex = 0; // The current array index.
     var interval; // The random number generated for each release.
