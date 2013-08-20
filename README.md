@@ -1,6 +1,11 @@
 #Timed Release
 A small .js utility to simulate real time activity in an html simulation. 
 
+###### Available on the bower registry
+```bash
+bower install timed-release
+```
+
 #### Example
 
 ```html
