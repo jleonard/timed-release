@@ -9,32 +9,25 @@ bower install timed-release
 #### Example
 
 ```html
-var array = ["uno","dos","tres"];
+var arr = [
+  {
+    message: "hi, I fire after 2 seconds",
+    at: 2000
+  },
+  {
+    message: "I fire anywhere between 2 and 8 seconds after item 1",
+    between: [2000,8000]
+  },
+  {
+    message: "and I fire exactly 2 seconds later",
+    at: 2000
+  }
+];
 
-var config = {
-                minInterval: 200,
-                maxInterval: 5000
-              };
-              
-var tr = new TimedRelease( 
-                                array, 
-                                config,
-                                function(item,index){ 
-                                                console.log("Released ",item," at ",index); 
-                                }
-                          );
-```
+var loop = true;
 
-#### Config
-######The config obj has three optional properties.  
-**minInterval** (milliseconds) The minimum amount of time between each release.  
-**maxInterval** (milliseconds) The maximum amount of time between each release.  
-**loop** (boolean) _optional_ if set to true the releases will continuously loop through the items in the array.
+var tr = new TimedRelease(arr,loop,function(item,index){
+  console.log("item ",item," index ",index);
+});
 
-```html
-{
-  minInterval: 200,
-  maxInterval: 5000,
-  loop: true
-}
 ```
