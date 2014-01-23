@@ -9,22 +9,29 @@
 /**
  * Represents a TimedRelease object.
  * @constructor
- * @param {array} array - The array of items to release at random intervals
- * @param {object} config - The configuration obj containing minInterval, maxInterval and optional loop properties.
+ * @param {array} array - The array of items to release at fixed or random intervals
+ * @param {boolean} loop - To loop or not to loop.
  * @param {timedReleaseCallback} callback - Called on each item release. 
  */
-function TimedRelease(array,config,callback){
+function TimedRelease(array,loop,callback){
 
     var currentIndex = 0; // The current array index.
-    var interval; // The random number generated for each release.
+    var interval; // The interval generated for each release.
     var timer; // The setTimeout used to fire each release.
+    var loop = loop;
 
     /**
     * Preps a release. Sets the random interval time and resets the timer.
     */
-    var loadItem = function(){
-      interval =  Math.floor(Math.random() * config.minInterval) + config.maxInterval;
+    var loadItem = function(item){
+      var interval = item.hasOwnProperty("at") ? item.at : randomIntFromInterval(item.between[0],item.between[1]);
+      item.interval = interval;
       timer = setTimeout(fireItem,interval);
+    }
+
+    function randomIntFromInterval(min,max)
+    {
+      return Math.floor(Math.random()*(max-min+1)+min);
     }
 
     /**
@@ -34,11 +41,11 @@ function TimedRelease(array,config,callback){
       callback(array[currentIndex],currentIndex);
       if(currentIndex < array.length - 1){
         currentIndex++;
-        loadItem();
+        loadItem(array[currentIndex]);
       }else{
-        if(config.loop){ currentIndex = 0; loadItem(); }
+        if(loop){ currentIndex = 0; loadItem(array[currentIndex]); }
       }
     }
-    loadItem();
+    loadItem(array[currentIndex]);
   }
 
