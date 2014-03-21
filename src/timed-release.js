@@ -15,10 +15,12 @@
  */
 function TimedRelease(array,loop,callback){
 
-    var currentIndex = 0; // The current array index.
+    this.currentIndex = 0; // The current array index.
     var interval; // The interval generated for each release.
     var timer; // The setTimeout used to fire each release.
     var loop = loop;
+
+    var that = this;
 
     /**
     * Preps a release. Sets the random interval time and resets the timer.
@@ -38,14 +40,14 @@ function TimedRelease(array,loop,callback){
     * Releases an item via the callback. Advances the current index or resets if the config is set to loop.
     */
     var fireItem = function(){
-      callback(array[currentIndex],currentIndex);
-      if(currentIndex < array.length - 1){
-        currentIndex++;
-        loadItem(array[currentIndex]);
+      callback(array[that.currentIndex],that.currentIndex);
+      if(that.currentIndex < array.length - 1){
+        that.currentIndex++;
+        loadItem(array[that.currentIndex]);
       }else{
-        if(loop){ currentIndex = 0; loadItem(array[currentIndex]); }
+        if(loop){ that.currentIndex = 0; loadItem(array[that.currentIndex]); }
       }
     }
-    loadItem(array[currentIndex]);
+    loadItem(array[that.currentIndex]);
   }
 
