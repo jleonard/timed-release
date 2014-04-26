@@ -14,7 +14,7 @@
  * @param {timedReleaseCallback} callback - Called on each item release. 
  */
 function TimedRelease(array,loop,callback){
-
+    
     this.currentIndex = 0; // The current array index.
     var interval; // The interval generated for each release.
     var timer; // The setTimeout used to fire each release.
