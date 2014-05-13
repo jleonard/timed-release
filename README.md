@@ -7,9 +7,11 @@ bower install timed-release
 ```
 
 ## Usage
-1. Create an array of objects that you want TimedRelease to publish back to your app. Each object needs to have an **at** or **between** property. 
 
-The **at** integer specifies a millisecond delay.
+#### Create an array of objects that you want TimedRelease to publish back to your app. Each object needs to have an **at** or **between** property. 
+
+The **at** integer specifies a millisecond delay.  
+
 The **between** array specifies an min and max delay. A random interval between those mix and max selected for the delay.
 
 ```js
@@ -29,7 +31,7 @@ var arr = [
 ];
 ```
 
-2. Create a TimedRelease object
+#### Create a TimedRelease object
 
 ####The arguments
 * **array**
