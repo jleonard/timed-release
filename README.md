@@ -12,7 +12,7 @@ bower install timed-release
 
 The **at** integer specifies a millisecond delay.  
 
-The **between** array specifies an min and max delay. A random interval between those mix and max selected for the delay.
+The **between** array specifies an min and max delay. A random interval between mix and max will be selected for the delay.
 
 ```js
 var arr = [
