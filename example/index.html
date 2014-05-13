@@ -30,25 +30,25 @@
       <script id='demo'>
 var arr = [
   {
-    payload: "hi, I fire after 2 seconds",
-    at: 2000
+    payload: "hi, I fire after 1.5 seconds",
+    at: 1500
   },
   {
     payload: "I fire anywhere between 2 and 8 seconds after item 1",
     between: [2000,8000]
   },
   {
-    payload: "and I fire exactly 2 seconds later",
+    payload: "...and I fire exactly 2 seconds later",
     at: 2000
   }
 ];
 
 var loop = true;
 
-var tr = new TimedRelease(arr,loop,function(item,index){
+var tr = new TimedRelease({array:arr,loop:loop,callback:function(item,index){
 	var d = new Date();
   console.log('time', d,'\n\titem ',item,'\n\tindex',index);
-});
+}});
       </script>
       <script>
       	$(document).ready(function(e){

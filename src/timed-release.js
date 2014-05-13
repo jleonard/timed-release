@@ -9,26 +9,51 @@
 /**
  * Represents a TimedRelease object.
  * @constructor
- * @param {array} array - The array of items to release at fixed or random intervals
+ * @param {object} options - The array of items to release at fixed or random intervals
  * @param {boolean} loop - To loop or not to loop.
  * @param {timedReleaseCallback} callback - Called on each item release. 
  */
-function TimedRelease(array,loop,callback){
+function TimedRelease(options){
     
     this.currentIndex = 0; // The current array index.
-    var interval; // The interval generated for each release.
-    var timer; // The setTimeout used to fire each release.
-    var loop = loop;
+
+    /* the interval integer for each release */
+    var interval;
+
+    /* the setTimeout interval */
+    var timer;
+
+    /* to loop or not to loop */
+    var loop = options.loop;
 
     var that = this;
 
+    /* a default argument object to fill in the blanks on an incomplete instantiation */
+    var DEFAULTS = {
+      array: [],
+      loop: false,
+      callback: function(){}
+    }
+
+    var options = extend(options,DEFAULTS);
+
+    function extend(a,b){
+      for(var key in b){
+        if(!a.hasOwnProperty(key)){
+          a[key] = b[key];
+        }
+      }
+      return a;
+    }
+
     /**
-    * Preps a release. Sets the random interval time and resets the timer.
+    * Preps the next release.
     */
     var loadItem = function(item){
-      var interval = item.hasOwnProperty("at") ? item.at : randomIntFromInterval(item.between[0],item.between[1]);
-      item.interval = interval;
-      timer = setTimeout(fireItem,interval);
+      if(item.hasOwnProperty('at') || item.hasOwnProperty('between')){
+        interval = item.hasOwnProperty("at") ? parseInt(item.at,10) : randomIntFromInterval(parseInt(item.between[0],10),parseInt(item.between[1],10));
+        timer = setTimeout(fireItem,interval);
+      }
     }
 
     function randomIntFromInterval(min,max)
@@ -40,14 +65,29 @@ function TimedRelease(array,loop,callback){
     * Releases an item via the callback. Advances the current index or resets if the config is set to loop.
     */
     var fireItem = function(){
-      callback(array[that.currentIndex],that.currentIndex);
-      if(that.currentIndex < array.length - 1){
+      options.callback(options.array[that.currentIndex],that.currentIndex);
+      if(that.currentIndex < options.array.length - 1){
         that.currentIndex++;
-        loadItem(array[that.currentIndex]);
+        loadItem(options.array[that.currentIndex]);
       }else{
-        if(loop){ that.currentIndex = 0; loadItem(array[that.currentIndex]); }
+        if(options.loop){ that.currentIndex = 0; loadItem(options.array[that.currentIndex]); }
       }
     }
-    loadItem(array[that.currentIndex]);
+
+    this.stop = function(){
+      clearTimeout(timer);
+    };
+
+    this.start = function(){
+      that.stop();
+      if(options.array.length > 0){
+        loadItem(options.array[that.currentIndex]);
+      }
+    };
+
+    if(options.array.length > 0){
+      loadItem(options.array[that.currentIndex]);
+    }
+    
   }
 

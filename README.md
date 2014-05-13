@@ -6,9 +6,13 @@ A small .js utility to simulate real time activity in an html simulation.
 bower install timed-release
 ```
 
-#### Example
+## Usage
+1. Create an array of objects that you want TimedRelease to publish back to your app. Each object needs to have an **at** or **between** property. 
 
-```html
+The **at** integer specifies a millisecond delay.
+The **between** array specifies an min and max delay. A random interval between those mix and max selected for the delay.
+
+```js
 var arr = [
   {
     message: "hi, I fire after 2 seconds",
@@ -23,11 +27,23 @@ var arr = [
     at: 2000
   }
 ];
+```
 
-var loop = true;
+2. Create a TimedRelease object
 
-var tr = new TimedRelease(arr,loop,function(item,index){
-  console.log("item ",item," index ",index);
-});
+####The arguments
+* **array**
+* **loop** _optional_ Defaults to false
+* **callback** _optional_ A function that accepts _item_ and _index_ arguments.
 
+```js
+var tr = new TimedRelease(
+  {
+    array: arr,
+    loop: true,
+    callback: function(item,index){
+      console.log('I recieved ',item);
+    }
+  }
+);
 ```
