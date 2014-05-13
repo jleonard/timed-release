@@ -44,7 +44,7 @@ var tr = new TimedRelease(
     array: arr,
     loop: true,
     callback: function(item,index){
-      console.log('I recieved ',item);
+      console.log('I received ',item);
     }
   }
 );
